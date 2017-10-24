@@ -6,7 +6,7 @@ We also have a development container: https://github.com/etopian/alpine-php-word
 
 # Lightweight WordPress PHP7 PHP-FPM7 & Nginx Docker Production Image
 
-Lightwight Docker image for the (latest) PHP-FPM and Nginx to run WordPress based on [AlpineLinux](http://alpinelinux.org)
+Lightweight Docker image for the (latest) PHP-FPM and Nginx to run WordPress based on [AlpineLinux](http://alpinelinux.org)
 
 * Image size only ~131MB !
 * Very new packages (alpine:edge) 2016-07-21:
@@ -65,7 +65,7 @@ chown -R 100:101 /data/sites/etopian.com/htdocs
 
 ### WP-CLI
 
-This image now includes WP-CLI wpcli.org baked in... So you can. Please `su nginx` before executing or else you can potentially compromise your host.
+This image now includes [WP-CLI](wp-cli.org) baked in... So you can. Please `su nginx` before executing or else you can potentially compromise your host.
 
 ```
 docker exec -it <container_name> bash
