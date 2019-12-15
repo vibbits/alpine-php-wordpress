@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.10
 MAINTAINER Etopian Inc. <contact@etopian.com>
 
 LABEL   devoply.type="site" \
