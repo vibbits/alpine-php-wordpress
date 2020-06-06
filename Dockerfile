@@ -1,11 +1,11 @@
 FROM alpine:latest
-MAINTAINER Etopian Inc. <contact@etopian.com>
+MAINTAINER abotzki <bits@vib.be>
 
 LABEL   devoply.type="site" \
         devoply.cms="wordpress" \
         devoply.framework="wordpress" \
         devoply.language="php7" \
-        devoply.require="mariadb etopian/nginx-proxy" \
+        devoply.require="mariadb jwilder/nginx-proxy" \
         devoply.recommend="redis" \
         devoply.description="WordPress on Nginx and PHP-FPM with WP-CLI." \
         devoply.name="WordPress" \
@@ -24,6 +24,8 @@ RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositor
     php7-fpm \
     php7-json \
     php7-zlib \
+    php7-zip \
+    php7-tokenizer \
     php7-xml \
     php7-pdo \
     php7-phar \
