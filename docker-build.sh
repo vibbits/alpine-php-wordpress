@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t etopian/alpine-php-wordpress:latest .
+docker build -t vibbits/alpine-php-wordpress:latest .
