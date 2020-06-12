@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.12.0
 MAINTAINER abotzki <bits@vib.be>
 
 LABEL   devoply.type="site" \
@@ -10,8 +10,6 @@ LABEL   devoply.type="site" \
         devoply.description="WordPress on Nginx and PHP-FPM with WP-CLI." \
         devoply.name="WordPress" \
         devoply.params="docker run -d --name {container_name} -e VIRTUAL_HOST={virtual_hosts} -v /data/sites/{domain_name}:/DATA etopian/alpine-php7-wordpress"
-
-
 
 RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories\
     && apk update \
@@ -55,6 +53,11 @@ RUN echo 'http://dl-4.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositor
     && apk --update --no-cache add tar
 RUN rm -rf /var/cache/apk/*
 
+# fix issue of Alpine with iconv library
+RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+##
+
 ENV TERM="xterm" \
     DB_HOST="172.17.0.1" \
     DB_NAME="" \
@@ -67,7 +70,6 @@ ENV PATH /DATA/bin:$PATH
 RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php7/php.ini && \
     sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:100:101:nginx:\/DATA:\/bin\/bash/g" /etc/passwd && \
     sed -i "s/nginx:x:100:101:nginx:\/var\/lib\/nginx:\/sbin\/nologin/nginx:x:100:101:nginx:\/DATA:\/bin\/bash/g" /etc/passwd-
-
 
 ADD files/nginx.conf /etc/nginx/
 ADD files/php-fpm.conf /etc/php7/
